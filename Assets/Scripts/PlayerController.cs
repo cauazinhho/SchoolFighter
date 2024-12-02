@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRigidBody;
     public float playerSpeed = 1f;
+    public float currentSpeed;
 
     public Vector2 playerDirection;
 
@@ -23,6 +24,9 @@ public class PlayerController : MonoBehaviour
 
     private bool comboControl;
 
+    // Indica se o player esta morto
+    private bool isDead;
+
     void Start()
     {
         //Obtem e inicializa as propriedades do RigiBody2D
@@ -30,6 +34,8 @@ public class PlayerController : MonoBehaviour
 
         // Obtem e inicializa as propriedades do animator
         playerAnimator = GetComponent<Animator>();
+
+        currentSpeed = playerSpeed;
 
     }
 
@@ -44,7 +50,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             if (isWalking == false)
-            {
+            
 
                 //Iniciar o temporizador
                 if (punchCount < 2)
@@ -65,7 +71,7 @@ public class PlayerController : MonoBehaviour
                     }
                     //Parando o temporizador
                     StopCoroutine(CrossController());
-                }
+                
             }
         }
     }
@@ -84,7 +90,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //O que da o movimento para o player
-        playerRigidBody.MovePosition(playerRigidBody.position + playerSpeed * Time.fixedDeltaTime * playerDirection);
+        //playerRigidBody.MovePosition(playerRigidBody.position + playerSpeed * Time.fixedDeltaTime * playerDirection);
+        playerRigidBody.MovePosition(playerRigidBody.position + currentSpeed * Time.fixedDeltaTime * playerDirection);
 
     }
 
@@ -144,6 +151,16 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeCross);
         punchCount = 0;
         comboControl = false;
+    }
+
+    void ZeroSpeed()
+    {
+        currentSpeed = 0;
+    }
+
+    void ResetSpeed()
+    {
+        currentSpeed = playerSpeed;
     }
 
 }
