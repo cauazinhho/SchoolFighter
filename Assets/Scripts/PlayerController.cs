@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool playerFacingRight = true;
 
     //Variavel contadora
-    private int punchCount;
+    public int punchCount;
 
     //Tempo de ataque
     private float timeCross = 0.75f;
@@ -49,30 +49,28 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            if (isWalking == false)
-            
+            //Iniciar o temporizador
+            if (punchCount < 2)
+            {
+                PlayerJab();
+                punchCount++;
 
-                //Iniciar o temporizador
-                if (punchCount < 2)
+                if (!comboControl)
                 {
-                    PlayerJab();
-                    punchCount++;
+                    StartCoroutine(CrossController());
 
-                    if (!comboControl)
-                    {
-                        StartCoroutine(CrossController());
+                }
 
-                    }
+                else if (punchCount >= 2)
+                {
+                    PlayerCross();
+                    punchCount = 0;
+                }
+                //Parando o temporizador
+                StopCoroutine(CrossController());
 
-                    else if (punchCount >= 2)
-                    {
-                        PlayerCross();
-                        punchCount = 0;
-                    }
-                    //Parando o temporizador
-                    StopCoroutine(CrossController());
-                
             }
+            
         }
     }
 
