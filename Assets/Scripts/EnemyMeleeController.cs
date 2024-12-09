@@ -18,6 +18,7 @@ public class EnemyMeleeController : MonoBehaviour
     // Variaveis para movimentação do inimigo
     private float enemySpeed = 0.3f;
     private float currentSpeed;
+    public Sprite enemyImage;
 
     private bool isWalking;
 
@@ -181,6 +182,9 @@ public class EnemyMeleeController : MonoBehaviour
             currentHealth -= damage;
 
             animator.SetTrigger("HitDamage");
+
+            // Atualiza a UI do inimigo
+            FindFirstObjectByType<UIManager>().UpdateEnemyUI(maxHealth, currentHealth, enemyImage);
 
             if (currentHealth <= 0)
             {

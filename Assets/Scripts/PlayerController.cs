@@ -27,6 +27,12 @@ public class PlayerController : MonoBehaviour
     // Indica se o player esta morto
     private bool isDead;
 
+    // Propriedades para a UI
+    // Public para ser acessivel em outro script
+    public int maxHealth = 10;
+    public int currentHealth;
+    public Sprite playerImage;
+
     void Start()
     {
         //Obtem e inicializa as propriedades do RigiBody2D
@@ -36,6 +42,9 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
 
         currentSpeed = playerSpeed;
+
+        // Iniciar a vida do Player
+        currentHealth = maxHealth;
 
     }
 
@@ -159,6 +168,16 @@ public class PlayerController : MonoBehaviour
     void ResetSpeed()
     {
         currentSpeed = playerSpeed;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!isDead)
+        {
+            currentHealth -= damage;
+            playerAnimator.SetTrigger("HitDamage");
+            FindFirstObjectByType<UIManager>().UpdatePlayerHealth(currentHealth);
+        }
     }
 
 }
