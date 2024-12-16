@@ -43,10 +43,10 @@ public class UIManager : MonoBehaviour
     {
         playerHealthBar.value += amount;
 
-        // Inicia o contador para controlar o tempo de exibição da enemyUI
+        // Inicia o contador para controlar o tempo de exibição da enemyUI 
         enemyTimer += Time.deltaTime;
         
-        // Se o tempo limite for atingindo, oculta a UI e reseta o timer
+        // Se o tempo limite for atingindo, oculta a UI (Vida do Inimigo) e reseta o timer
         if (enemyTimer >= enemyUITime)
         {
             enemyUI.SetActive(false);
@@ -68,10 +68,4 @@ public class UIManager : MonoBehaviour
         // Habilita a enemyUI, deixando-a visível
         enemyUI.SetActive(true);
     }
-
-
-
-
-
-
 }
