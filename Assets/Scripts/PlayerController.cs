@@ -33,6 +33,13 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
     public Sprite playerImage;
 
+    // SFX do Player
+    private AudioSource playerAudioSource;
+
+    public AudioClip jabSound;
+    //public AudioClip crossSound;
+    //public AudioClip deathSound;
+
     void Start()
     {
         //Obtem e inicializa as propriedades do RigiBody2D
@@ -45,6 +52,9 @@ public class PlayerController : MonoBehaviour
 
         // Iniciar a vida do Player
         currentHealth = maxHealth;
+
+        // Inicia o componente de AudioSource do Player
+        playerAudioSource = GetComponent<AudioSource>();
 
     }
 
@@ -145,6 +155,12 @@ public class PlayerController : MonoBehaviour
         //Acessa a animação do Jab
         //Ativa o gatilho de ataque jab
         playerAnimator.SetTrigger("isJab");
+
+        // Definir o SFX a ser reproduzido
+        playerAudioSource.clip = jabSound;
+
+        // Executar o SFX
+        playerAudioSource.Play();
     }
 
     void PlayerCross()

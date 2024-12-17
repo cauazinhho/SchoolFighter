@@ -121,7 +121,7 @@ public class EnemyRange : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void TakeDamage() 
+    public void TakeDamage(int damage) 
     {
         isTakingDamage = true;
 
